@@ -272,7 +272,7 @@ div.error-window pre * {
 .play-result .info-bar.score .acc {
     font-family: 'A-OTF Shin Go Pr6N H';
     font-size: calc(20px * var(--height-percent));
-    line-height: calc(18px * var(--height-percent));
+    line-height: calc(20px * var(--height-percent));
 }
 
 .play-result .info-bar.acc-bar {

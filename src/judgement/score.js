@@ -212,7 +212,7 @@ export default class Score
         {
             this.sprites.combo.number.text = this.combo;
 
-            this.sprites.acc.text = 'ACCURACY ' + (this.acc * 100).toFixed(2) + '%\n' + 'STD. DEVIATION ' + (std(this.judgeTimeList) * 1000).toFixed(4) + 'ms';
+            this.sprites.acc.text = 'ACCURACY ' + (this.acc * 100).toFixed(2) + '%\n' + 'STD. DEVIATION ' + (std(this.judgeTimeList, 'uncorrected') * 1000).toFixed(4) + 'ms';
             this.sprites.score.text = fillZero((this.score).toFixed(0), 7);
 
             this.sprites.combo.text.position.x = this.sprites.combo.number.width + this.renderSize.heightPercent * 6;
