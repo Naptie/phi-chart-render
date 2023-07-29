@@ -2,6 +2,7 @@ import * as PhiChartRender from './main';
 import FontFaceObserver from 'fontfaceobserver';
 import JSZip from 'jszip';
 import { Texture, Rectangle } from 'pixi.js';
+import { std } from 'mathjs';
 import { canvasRGB as StackBlur } from 'stackblur-canvas';
 import Pica from 'pica';
 import * as Sentry from '@sentry/browser';
@@ -891,7 +892,7 @@ function showGameResultPopup(game)
     if (judge.score._autoPlay) qs('.play-result .extra-info').innerText = 'Auto Play';
 
     qs('.play-result .info-bar.score .score').innerText = fillZero((judge.score.score).toFixed(0));
-    qs('.play-result .info-bar.score .acc').innerText = 'Accuracy ' + (judge.score.acc * 100).toFixed(2) + '%';
+    qs('.play-result .info-bar.score .acc').innerText = 'Accuracy ' + (judge.score.acc * 100).toFixed(2) + '%\n' + 'Std. Deviation ' + (std(judge.score.judgeTimeList) * 1000).toFixed(4) + 'ms';
 
     qs('.play-result .info-bar.detail .detail-single .value.perfect').innerText = judge.score.perfect;
     qs('.play-result .info-bar.detail .detail-single .value.good').innerText = judge.score.good;

@@ -1,4 +1,5 @@
 import { Text, Container } from 'pixi.js';
+import { std } from 'mathjs';
 
 export default class Score
 {
@@ -16,6 +17,8 @@ export default class Score
 
         this.scorePerNote  = isChallengeMode ? 1000000 / notesCount : 900000 / notesCount;
         this.scorePerCombo = isChallengeMode ? 0 : 100000 / notesCount;
+
+        this.judgeTimeList = [];
 
         this.renderSize = {};
         
@@ -43,11 +46,16 @@ export default class Score
         if (this.sprites)
         {
             this.sprites.combo.number.text = '0';
-            this.sprites.acc.text = 'ACCURACY 0.00%';
+            this.sprites.acc.text = 'ACCURACY 0.00%\nSTD. DEVIATION 0.0000ms';
             this.sprites.score.text = '0000000';
 
             this.sprites.combo.text.position.x = this.sprites.combo.number.width + this.renderSize.heightPercent * 6;
         }
+    }
+
+    addJudgeTime(time)
+    {
+        this.judgeTimeList.push(time);
     }
 
     createSprites(stage)
@@ -73,7 +81,7 @@ export default class Score
         this.sprites.combo.container.addChild(this.sprites.combo.number, this.sprites.combo.text);
         stage.addChild(this.sprites.combo.container);
 
-        this.sprites.acc = new Text('ACCURACY 0.00%', {
+        this.sprites.acc = new Text('ACCURACY 0.00%\nSTD. DEVIATION 0.0000ms', {
             fontFamily: 'MiSans',
             fill: 0xFFFFFF
         });
@@ -204,7 +212,7 @@ export default class Score
         {
             this.sprites.combo.number.text = this.combo;
 
-            this.sprites.acc.text = 'ACCURACY ' + (this.acc * 100).toFixed(2) + '%';
+            this.sprites.acc.text = 'ACCURACY ' + (this.acc * 100).toFixed(2) + '%\n' + 'STD. DEVIATION ' + (std(this.judgeTimeList) * 1000).toFixed(4) + 'ms';
             this.sprites.score.text = fillZero((this.score).toFixed(0), 7);
 
             this.sprites.combo.text.position.x = this.sprites.combo.number.width + this.renderSize.heightPercent * 6;

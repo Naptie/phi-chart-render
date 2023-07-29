@@ -294,7 +294,6 @@ function calcNoteJudge(currentTime, note)
             return;
         }
     }
-    
 
     let timeBetween = note.time - currentTime,
         timeBetweenReal = timeBetween > 0 ? timeBetween : timeBetween * -1,
@@ -333,6 +332,10 @@ function calcNoteJudge(currentTime, note)
                     this.judgePoints[i].type === 1 &&
                     this.judgePoints[i].isInArea(notePosition.x, notePosition.y, judgeline.cosr, judgeline.sinr, this.renderSize.noteWidth)
                 ) {
+    
+                    console.log(timeBetween)
+                    this.score.addJudgeTime(timeBetween)
+                    
                     if (timeBetweenReal <= this.judgeTimes.bad)
                     {
                         note.isScored = true;
@@ -414,6 +417,9 @@ function calcNoteJudge(currentTime, note)
                     this.judgePoints[i].isInArea(notePosition.x, notePosition.y, judgeline.cosr, judgeline.sinr, this.renderSize.noteWidth) &&
                     timeBetweenReal <= this.judgeTimes.good
                 ) {
+                    console.log(timeBetween)
+                    this.score.addJudgeTime(timeBetween)
+
                     note.isScored = true;
                     note.scoreTime = timeBetween;
 
